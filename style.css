@@ -23,11 +23,11 @@ header p {
 }
 
 main {
-    background-color: #333333;
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 40px;
-    border-radius: 12px;
+    width: 100%;
+    min-height: calc(100vh - 160px);
+    background-color: #242424;
+    border-top: 1px solid #383838;
+    padding-bottom: 60px;
     box-sizing: border-box;
 }
 
@@ -149,19 +149,32 @@ footer p {
 }
 
 .download-card {
-    background-color: #333333;
-    padding: 25px;
-    border: 1px solid #444444;
-    border-radius: 12px;
-    box-sizing: border-box;
     width: 100%;
     min-width: 0;
+    padding: 30px;
+    box-sizing: border-box;
+
+    background-color: #2b2b2b;
+    border: 1px solid #4a4a4a;
+    border-radius: 16px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+.download-card:hover {
+    transform: translateY(-5px);
+    border-color: #777777;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 section {
     max-width: 1000px;
     margin: 40px auto;
     padding: 35px;
-    min-height: 250px;
+    min-height: 500px;
     background-color: #2b2b2b;
     border: 1px solid #454545;
     border-radius: 16px;
@@ -178,4 +191,28 @@ section p {
     font-size: 18px;
     line-height: 1.6;
     color: #d0d0d0;
+}
+.main-panel {
+    width: 55%;
+    max-width: 1000px;
+    height: 600px;
+    margin: 40px 0 40px 40px;
+    background-color: #2b2b2b;
+    border: 1px solid #454545;
+    border-radius: 16px;
+    box-sizing: border-box;
+}
+footer {
+    margin-top: auto;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.downloads-title {
+    color: #f0f0f0;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
 }
