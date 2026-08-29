@@ -1,6 +1,7 @@
 function changeBackground() {
     document.body.style.backgroundColor = "#333333";
 }
+
 function revealName(element) {
     element.classList.add("revealed");
 
@@ -9,10 +10,209 @@ function revealName(element) {
     }, 5000);
 }
 
+
 document.addEventListener("DOMContentLoaded", function () {
+
+    /* =========================================
+       PRIVATE NAME REVEAL
+    ========================================= */
+
     document.querySelectorAll(".private-name").forEach(function (name) {
+
         name.addEventListener("click", function () {
             revealName(name);
         });
+
     });
+
+
+    /* =========================================
+       DYNAMIC SHOOTING STARS
+    ========================================= */
+
+    const starContainer = document.querySelector(".stars");
+
+    if (!starContainer) {
+        return;
+    }
+
+
+    /* Remove old static stars */
+
+    starContainer.querySelectorAll(".star").forEach(function (star) {
+        star.remove();
+    });
+
+
+    /* Create a new shooting star */
+
+    function createShootingStar() {
+
+        const star = document.createElement("span");
+
+        star.className = "dynamic-star";
+
+
+        /* Random starting position */
+
+        const startX = -10 + Math.random() * 120;
+        const startY = -10 + Math.random() * 120;
+
+
+        /* Random depth */
+
+        const depth = Math.random();
+
+
+        /* Smaller = farther away */
+
+        let size;
+
+        if (depth < 0.65) {
+
+            size = 1 + Math.random() * 1.2;
+
+        } else if (depth < 0.9) {
+
+            size = 1.8 + Math.random() * 1.5;
+
+        } else {
+
+            size = 3 + Math.random() * 2;
+
+        }
+
+
+        /* Random speed */
+
+        const duration = 4 + Math.random() * 3;
+
+
+        /* Apply position */
+
+        star.style.left = startX + "%";
+        star.style.top = startY + "%";
+
+
+        /* Apply size */
+
+        star.style.width = size + "px";
+        star.style.height = size + "px";
+
+
+        /* Random brightness */
+
+        star.style.opacity =
+            0.35 + Math.random() * 0.65;
+
+
+        /* Very subtle blur */
+
+        star.style.filter =
+            `blur(${Math.random() * 0.4}px)`;
+
+
+        /* Animation speed */
+
+        star.style.animationDuration =
+            duration + "s";
+
+
+        /* Add to container */
+
+        starContainer.appendChild(star);
+
+
+        /* Remove after animation */
+
+        setTimeout(function () {
+
+            star.remove();
+
+        }, duration * 1000);
+
+    }
+
+
+    /* =========================================
+       STAR SPAWNER
+    ========================================= */
+
+    function scheduleStar() {
+
+        createShootingStar();
+
+
+        /*
+           Random delay between stars.
+           250–700ms gives us a much denser
+           sky without completely flooding it.
+        */
+
+        const nextStar =
+            250 + Math.random() * 450;
+
+
+        setTimeout(scheduleStar, nextStar);
+
+    }
+
+
+    /* =========================================
+       INITIAL STAR FIELD
+    ========================================= */
+
+    for (let i = 0; i < 25; i++) {
+
+        setTimeout(
+            createShootingStar,
+            i * 100
+        );
+
+    }
+
+
+    /* Start continuous spawning */
+
+    scheduleStar();
+
+});
+/* =================================
+   PRIVATE HERO CARD
+================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const heroCard = document.querySelector(".hero-gfx-card");
+
+    if (!heroCard) return;
+
+    const privateContent = document.createElement("div");
+
+    privateContent.className = "private-card-content";
+
+    privateContent.innerHTML = `
+    <span>PRIVATE</span>
+    <h2><span class="rgb-text">ProjectRasty</span></h2>
+    <p>2026 Rasty Israel Enterprise©</p>
+    <p>is not responsible for the use or distribution</p>
+    <p>of third party or pirated software.</p>
+`;
+
+    heroCard.appendChild(privateContent);
+
+    let hideTimer;
+
+heroCard.addEventListener("click", function () {
+
+    heroCard.classList.add("revealed");
+
+    clearTimeout(hideTimer);
+
+    hideTimer = setTimeout(function () {
+        heroCard.classList.remove("revealed");
+    }, 3000);
+
+});
+
 });
